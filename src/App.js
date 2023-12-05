@@ -1,31 +1,24 @@
-import HomePage from "./page/Home";
-import NewsPage from "./page/Contact";
-import ContactPage from "./page/Contact";
-import { Routes, Route, Link } from 'react-router-dom'
+import { useRef } from "react";
+import { actions, useStore } from "./store";
+
 
 
 function App() {
-
+  const [state, dispath] = useStore()
+  const { todo, inputTodo } = state
+  const inputRef = useRef()
+  const handleTodo = () => {
+    dispath(actions.addTodo(inputTodo))
+    inputRef.current.focus()
+    dispath(actions.setTodoInput(''))
+  }
   return (
     <div className='App'>
-      <nav>
-        <ul>
-          <li>
-            <Link href="/">Home</Link>
-          </li>
-          <li>
-            <Link href="/contact">Contact</Link>s
-          </li>
-          <li>
-            <Link href="/news">News</Link>
-          </li>
-        </ul>
-      </nav>
-      <Routes> 
-        <Route path="/" element={<HomePage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/news" element={<NewsPage />} />
-      </Routes>
+      <input ref={inputRef} placeholder="Enter todo..." value={inputTodo} onChange={(e) => { dispath(actions.setTodoInput(e.target.value)) }} />
+      <button onClick={handleTodo}>ADD</button>
+      <ul>
+        {todo.map((todo, index) => (<li key={index}>{todo}</li>))}
+      </ul>
     </div>
 
   );
