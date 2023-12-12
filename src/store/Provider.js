@@ -1,13 +1,14 @@
+import React from "react";
 import { useReducer } from "react";
 import Context from "./Context";
 import reducer, { initState } from "./reducer";
+import logger from "./logger";
 
 function Provider({ children }) {
-    const [state, dispath] = useReducer(reducer,initState)
-    return (
-        <Context.Provider value={[state,dispath]}>
-            {children}
-        </Context.Provider>
-    )
+  const [state, dispatch] = useReducer(logger(reducer), initState);
+  return (
+    <Context.Provider value={[state, dispatch]}>{children}</Context.Provider>
+  );
 }
-export default Provider
+
+export default Provider;

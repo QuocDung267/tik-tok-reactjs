@@ -1,33 +1,33 @@
-import { useRef } from "react";
-import { actions, useStore } from "./store";
+import React from "react";
+import { Link, Route, Routes } from "react-router-dom";
+import HomePage from "./page/Home";
+import NewsPage from "./page/News";
+import ContactPage from "./page/Contact";
 
-function App() {
-  const [state, dispath] = useStore();
-  const { todo, inputTodo } = state;
-  const inputRef = useRef();
-  const handleTodo = () => {
-    dispath(actions.addTodo(inputTodo));
-    inputRef.current.focus();
-    dispath(actions.setTodoInput(""));
-  };
+export default function App() {
   return (
     <div className="App">
-      <input
-        ref={inputRef}
-        placeholder="Enter todo..."
-        value={inputTodo}
-        onChange={(e) => {
-          dispath(actions.setTodoInput(e.target.value));
-        }}
-      />
-      <button onClick={handleTodo}>ADD</button>
-      <ul>
-        {todo.map((todo, index) => (
-          <li key={index}>{todo}</li>
-        ))}
-      </ul>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/news">News</Link>
+          </li>
+          <li>
+            <Link to="/contact">Contact</Link>
+          </li>
+        </ul>
+      </nav>
+      {/* Routes đặt nơi xảy ra sử thay đổi định tuyến */}
+      <Routes>
+        {/* chưa nhiều route nhỏ để định nghĩa ra component */}
+        {/* path sẽ đối chiếu với trình duyệt để render ra component */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/news" element={<NewsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
     </div>
   );
 }
-
-export default App;

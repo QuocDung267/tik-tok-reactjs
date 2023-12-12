@@ -1,19 +1,33 @@
-import { ADD_TODO, SET_TODO_INPUT } from "./constains";
+import { SET_TODO_INPUT, ADD_TODO_INPUT, DELETE_TODO_INPUT } from "./constants";
 
 const initState = {
-    todo: [],
-    inputTodo: '',
-}
-function reducer(state, action) {
-    switch (action.type) {
-        case SET_TODO_INPUT:
-            return { ...state, inputTodo: action.payload }
+  todoInput: "",
+  todos: []
+};
 
-        case ADD_TODO:
-            return { ...state, todo: [...state.todo, action.payload] }
-        default:
-            throw new Error('invalid action')
-    }
+function reducer(state, action) {
+  switch (action.type) {
+    case SET_TODO_INPUT:
+      return {
+        ...state,
+        todoInput: action.payload
+      };
+    case ADD_TODO_INPUT:
+      return {
+        ...state,
+        todos: [...state.todos, action.payload]
+      };
+    case DELETE_TODO_INPUT:
+      const newState = [...state.todos];
+      newState.splice(action.payload, 1);
+      return {
+        ...state,
+        todos: newState
+      };
+    default:
+      throw new Error("Invalid action...");
+  }
 }
-export { initState }
-export default reducer
+
+export { initState };
+export default reducer;
