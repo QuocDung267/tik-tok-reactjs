@@ -9,6 +9,7 @@ export default function App() {
     <div className="App">
       <nav>
         <ul>
+          {/* change */}
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -24,7 +25,7 @@ export default function App() {
       <Routes>
         {/* chưa nhiều route nhỏ để định nghĩa ra component */}
         {/* path sẽ đối chiếu với trình duyệt để render ra component */}
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />~
         <Route path="/news" element={<NewsPage />} />
         <Route path="/contact" element={<ContactPage />} />
       </Routes>
